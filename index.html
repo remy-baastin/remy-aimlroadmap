@@ -1,0 +1,1851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Engineer Roadmap — 30-Week Dashboard</title>
+    <style>
+        :root {
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --card-bg-secondary: #fcfcfd;
+            --text-primary: #212529;
+            --text-secondary: #6c757d;
+            --text-tertiary: #868e96;
+            --border: #e9ecef;
+            --border-light: #f1f3f5;
+            --hover-bg: #f8f9fa;
+            --hover-phase: #f8f9ff;
+            --note-bg: #FFF8E7;
+            --note-border: #F0A92D;
+            --note-text: #5c4a1f;
+            --milestone-bg: #f0faf5;
+            --milestone-border: #d3f0e0;
+            --milestone-text: #0b4f2e;
+            --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 2px 12px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 6px 16px rgba(0, 0, 0, 0.06);
+            --progress-track: #e9ecef;
+            --progress-fill: #1D9E75;
+            --progress-fill-glow: #2ecc71;
+            --tag-bg-default: #f1f3f5;
+            --tag-text-default: #495057;
+            --focus-ring: #3b82f6;
+            --danger: #dc3545;
+            --danger-hover: #c82333;
+            --toolbar-bg: #ffffff;
+            --input-bg: #ffffff;
+            --input-border: #ced4da;
+            --phase-body-bg: #fcfcfd;
+            --week-check-border: #ced4da;
+            --week-check-hover-bg: #e6f7f0;
+            --badge-bg: #f1f3f5;
+            --badge-text: #6c757d;
+            --divider: #f1f3f5;
+            --ring-bg: #e9ecef;
+            --tab-active-bg: #ffffff;
+            --tab-inactive-bg: #f1f3f5;
+            --tab-text: #6c757d;
+            --tab-active-text: #1D9E75;
+        }
+
+        body.dark {
+            --bg: #1a1a2e;
+            --card-bg: #222240;
+            --card-bg-secondary: #252545;
+            --text-primary: #e0e0e8;
+            --text-secondary: #a0a0b8;
+            --text-tertiary: #8888a0;
+            --border: #333358;
+            --border-light: #2a2a48;
+            --hover-bg: #2a2a48;
+            --hover-phase: #2a2a50;
+            --note-bg: #3d3520;
+            --note-border: #8a6d20;
+            --note-text: #c4a84a;
+            --milestone-bg: #1a3028;
+            --milestone-border: #2a5040;
+            --milestone-text: #5cd8a0;
+            --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.15);
+            --shadow-md: 0 2px 12px rgba(0, 0, 0, 0.2);
+            --shadow-lg: 0 6px 16px rgba(0, 0, 0, 0.25);
+            --progress-track: #333358;
+            --tag-bg-default: #2a2a48;
+            --tag-text-default: #b0b0c8;
+            --focus-ring: #60a5fa;
+            --toolbar-bg: #222240;
+            --input-bg: #1e1e38;
+            --input-border: #444468;
+            --phase-body-bg: #1e1e3a;
+            --week-check-border: #555578;
+            --week-check-hover-bg: #1a3a2a;
+            --badge-bg: #2a2a48;
+            --badge-text: #a0a0b8;
+            --divider: #2a2a48;
+            --ring-bg: #333358;
+            --tab-active-bg: #222240;
+            --tab-inactive-bg: #1e1e38;
+            --tab-text: #8888a0;
+            --tab-active-text: #4ade80;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            padding: 1.5rem;
+            line-height: 1.5;
+            transition: background 0.3s, color 0.3s;
+            min-height: 100vh;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        .roadmap {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        /* ── Tabs ────────────────────────── */
+        .tab-nav {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 1.5rem;
+            background: var(--card-bg);
+            padding: 5px;
+            border-radius: 28px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 0.65rem 1rem;
+            border-radius: 24px;
+            border: none;
+            background: transparent;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            color: var(--tab-text);
+            transition: all 0.2s;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+        .tab-btn.active {
+            background: var(--tab-active-bg);
+            color: var(--tab-active-text);
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+        }
+        .tab-btn:hover:not(.active) {
+            color: var(--text-primary);
+            background: var(--hover-bg);
+        }
+
+        /* ── Toolbar ─────────────────────── */
+        .toolbar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .toolbar button,
+        .toolbar .btn-icon {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.45rem 0.85rem;
+            border-radius: 22px;
+            border: 1px solid var(--border);
+            background: var(--toolbar-bg);
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            white-space: nowrap;
+            font-family: inherit;
+        }
+        .toolbar button:hover,
+        .toolbar .btn-icon:hover {
+            background: var(--hover-bg);
+            color: var(--text-primary);
+            border-color: var(--text-tertiary);
+        }
+        .toolbar .btn-icon {
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.1rem;
+        }
+        .toolbar .btn-danger {
+            color: var(--danger);
+            border-color: transparent;
+            background: transparent;
+            font-size: 0.75rem;
+        }
+        .toolbar .btn-danger:hover {
+            background: #fff0f0;
+            color: #b91c1c;
+        }
+        body.dark .toolbar .btn-danger:hover {
+            background: #3d1a1a;
+            color: #f87171;
+        }
+
+        /* ── Dashboard Card ──────────────── */
+        .dashboard {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 1.5rem 1.75rem;
+            margin-bottom: 1.25rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+            transition: background 0.3s, border 0.3s;
+        }
+        .dash-ring-wrap {
+            flex-shrink: 0;
+            position: relative;
+            width: 110px;
+            height: 110px;
+        }
+        .dash-ring-wrap svg {
+            width: 110px;
+            height: 110px;
+            transform: rotate(-90deg);
+        }
+        .dash-ring-bg {
+            fill: none;
+            stroke: var(--ring-bg);
+            stroke-width: 10;
+        }
+        .dash-ring-fill {
+            fill: none;
+            stroke: var(--progress-fill);
+            stroke-width: 10;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .dash-ring-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            pointer-events: none;
+        }
+        .dash-ring-pct {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+        .dash-ring-label {
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .dash-stats {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .dash-stat-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .dash-stat-row .stat-icon {
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .dash-stat-row strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .dash-motivation {
+            font-size: 0.85rem;
+            color: var(--progress-fill);
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        /* ── Quick Jump Chips ────────────── */
+        .quick-jump {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 1rem;
+        }
+        .quick-jump .chip {
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1.5px solid transparent;
+            transition: all 0.2s;
+            user-select: none;
+            white-space: nowrap;
+            background: var(--card-bg);
+            color: var(--text-secondary);
+            border-color: var(--border);
+        }
+        .quick-jump .chip:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--text-tertiary);
+        }
+        .quick-jump .chip.active-chip {
+            border-color: var(--progress-fill);
+            color: var(--progress-fill);
+            background: #e6f7f0;
+        }
+        body.dark .quick-jump .chip.active-chip {
+            background: #1a3028;
+        }
+
+        /* ── Progress Bar ────────────────── */
+        .progress-bar-wrap {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            transition: background 0.3s, border 0.3s;
+        }
+        .progress-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .progress-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .progress-count {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: var(--badge-bg);
+            padding: 0.2rem 0.75rem;
+            border-radius: 20px;
+        }
+        .progress-track {
+            height: 8px;
+            background: var(--progress-track);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--progress-fill), var(--progress-fill-glow));
+            border-radius: 8px;
+            transition: width 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        /* ── Search ──────────────────────── */
+        .search-wrap {
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        .search-wrap input {
+            width: 100%;
+            padding: 0.7rem 1rem 0.7rem 2.5rem;
+            border-radius: 25px;
+            border: 1.5px solid var(--input-border);
+            background: var(--input-bg);
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            transition: all 0.2s;
+            font-family: inherit;
+            outline: none;
+        }
+        .search-wrap input:focus {
+            border-color: var(--focus-ring);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+        }
+        .search-wrap .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-tertiary);
+            pointer-events: none;
+            font-size: 1rem;
+        }
+        .search-clear {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: none;
+            padding: 4px;
+            border-radius: 50%;
+            line-height: 1;
+        }
+        .search-clear.visible {
+            display: block;
+        }
+        .search-clear:hover {
+            color: var(--text-primary);
+            background: var(--hover-bg);
+        }
+
+        /* ── Resources View ───────────────── */
+        .resources-container {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 1.5rem 1.75rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+        }
+        .resource-group {
+            margin-bottom: 1.5rem;
+        }
+        .resource-group h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .resource-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .resource-list li {
+            padding: 0.6rem 0.8rem;
+            border-radius: 10px;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+        .resource-list li:hover {
+            background: var(--hover-bg);
+        }
+        .resource-bullet {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--progress-fill);
+            flex-shrink: 0;
+            margin-top: 6px;
+        }
+        .resource-desc {
+            color: var(--text-tertiary);
+            font-size: 0.8rem;
+            margin-left: 4px;
+        }
+        .paper-item {
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        /* ── Phase Header ────────────────── */
+        .phase-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 4px;
+            border-radius: 16px;
+            background: var(--card-bg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .phase-header:hover {
+            background: var(--hover-phase);
+            box-shadow: var(--shadow-md);
+        }
+        .phase-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .phase-title {
+            flex: 1;
+            min-width: 0;
+        }
+        .phase-title h2 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+        }
+        .phase-title p {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            margin-top: 3px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .phase-progress {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            background: var(--badge-bg);
+            padding: 0.2rem 0.75rem;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+        .phase-toggle {
+            font-size: 1rem;
+            color: var(--text-tertiary);
+            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        .phase-toggle.open {
+            transform: rotate(180deg);
+        }
+        .phase-check-all {
+            font-size: 0.7rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+            font-family: inherit;
+            flex-shrink: 0;
+        }
+        .phase-check-all:hover {
+            background: #e6f7f0;
+            color: var(--progress-fill);
+            border-color: var(--progress-fill);
+        }
+        body.dark .phase-check-all:hover {
+            background: #1a3028;
+        }
+
+        /* ── Phase Body ──────────────────── */
+        .phase-body {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+        }
+        .phase-body.open {
+            max-height: 8000px;
+            opacity: 1;
+        }
+
+        /* ── Week Card ───────────────────── */
+        .week-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            margin: 10px 0;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow 0.2s, border-color 0.2s, opacity 0.3s;
+        }
+        .week-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        .week-card.focused {
+            border-color: var(--focus-ring) !important;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
+            outline: none;
+        }
+        .week-card.filtered-out {
+            display: none;
+        }
+        .week-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 18px;
+            cursor: pointer;
+            background: var(--card-bg);
+            transition: background 0.2s;
+        }
+        .week-header:hover {
+            background: var(--hover-bg);
+        }
+        .week-num {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            min-width: 58px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .week-title {
+            font-size: 0.93rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            flex: 1;
+        }
+        .week-check {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--week-check-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s;
+            cursor: pointer;
+            position: relative;
+        }
+        .week-check:hover {
+            border-color: var(--progress-fill);
+            background: var(--week-check-hover-bg);
+        }
+        .week-check.done {
+            background: var(--progress-fill);
+            border-color: var(--progress-fill);
+        }
+        .week-check.done::after {
+            content: '';
+            width: 5px;
+            height: 9px;
+            border: 2px solid white;
+            border-top: none;
+            border-left: none;
+            transform: rotate(45deg) translateY(-1px);
+            position: absolute;
+            top: 3px;
+        }
+        .week-note-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--text-tertiary);
+            padding: 4px;
+            border-radius: 6px;
+            transition: all 0.2s;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+        .week-note-btn:hover {
+            color: var(--text-primary);
+            background: var(--hover-bg);
+        }
+        .week-note-btn.has-note {
+            color: #F0A92D;
+        }
+
+        /* ── Week Body ───────────────────── */
+        .week-body {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            padding: 0 18px;
+            background: var(--phase-body-bg);
+            border-top: 1px solid var(--divider);
+            transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, padding 0.4s ease;
+        }
+        .week-body.open {
+            max-height: 4000px;
+            opacity: 1;
+            padding: 16px 18px 18px;
+        }
+        .week-note-input {
+            width: 100%;
+            min-height: 50px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1.5px solid var(--border);
+            background: var(--card-bg);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.85rem;
+            resize: vertical;
+            transition: border 0.2s;
+            margin-bottom: 10px;
+            outline: none;
+        }
+        .week-note-input:focus {
+            border-color: var(--focus-ring);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.08);
+        }
+        .week-note-input::placeholder {
+            color: var(--text-tertiary);
+            font-style: italic;
+        }
+
+        /* ── Task Sections ───────────────── */
+        .task-section {
+            margin-bottom: 12px;
+        }
+        .task-section-label {
+            font-size: 0.73rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-tertiary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        .task-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .task-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+        }
+        .task-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #adb5bd;
+            flex-shrink: 0;
+            margin-top: 7px;
+        }
+
+        /* ── Tags ────────────────────────── */
+        .tag {
+            display: inline-block;
+            font-size: 0.68rem;
+            font-weight: 600;
+            padding: 0.15rem 0.7rem;
+            border-radius: 20px;
+            margin-right: 6px;
+            margin-bottom: 6px;
+            letter-spacing: 0.02em;
+        }
+        .tag-strang {
+            background: #E6F1FB;
+            color: #0C447C;
+        }
+        .tag-mml {
+            background: #EEEDFE;
+            color: #3C3489;
+        }
+        .tag-nnfs {
+            background: #FAECE7;
+            color: #712B13;
+        }
+        .tag-llm {
+            background: #FAEEDA;
+            color: #633806;
+        }
+        .tag-deepml {
+            background: #EAF3DE;
+            color: #27500A;
+        }
+        .tag-torchleet {
+            background: #FBEAF0;
+            color: #72243E;
+        }
+        .tag-ai-eng {
+            background: #E1F5EE;
+            color: #085041;
+        }
+        .tag-project {
+            background: #F1EFE8;
+            color: #2C2C2A;
+            border: 1px solid #e9ecef;
+        }
+        .tag-note {
+            background: #FCEBEB;
+            color: #791F1F;
+        }
+
+        /* ── Milestone & Note Box ────────── */
+        .milestone {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 12px;
+            background: var(--milestone-bg);
+            border: 1px solid var(--milestone-border);
+            margin-top: 12px;
+            font-size: 0.88rem;
+            color: var(--milestone-text);
+            font-weight: 500;
+        }
+        .note-box {
+            padding: 10px 14px;
+            border-radius: 12px;
+            background: var(--note-bg);
+            border-left: 4px solid var(--note-border);
+            margin-top: 12px;
+            font-size: 0.84rem;
+            color: var(--note-text);
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .note-box .note-icon {
+            flex-shrink: 0;
+            font-size: 1rem;
+            margin-top: 1px;
+        }
+
+        /* ── Confetti ────────────────────── */
+        .confetti-container {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .confetti-particle {
+            position: absolute;
+            font-size: 1.2rem;
+            animation: confetti-fall 1.4s ease-out forwards;
+            pointer-events: none;
+        }
+        @keyframes confetti-fall {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(0.3);
+            }
+        }
+
+        /* ── Toast ───────────────────────── */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: #1a1a2e;
+            color: #fff;
+            padding: 0.7rem 1.4rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            z-index: 10000;
+            pointer-events: none;
+            transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            white-space: nowrap;
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ── Responsive ──────────────────── */
+        @media (max-width: 600px) {
+            body {
+                padding: 0.75rem;
+            }
+            .dashboard {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 1.25rem;
+                gap: 1rem;
+            }
+            .dash-stats {
+                align-items: center;
+            }
+            .dash-stat-row {
+                justify-content: center;
+            }
+            .phase-header {
+                padding: 0.85rem 1rem;
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+            .phase-check-all {
+                font-size: 0.65rem;
+                padding: 0.2rem 0.5rem;
+            }
+            .week-header {
+                padding: 10px 12px;
+                gap: 8px;
+            }
+            .week-num {
+                min-width: 44px;
+                font-size: 0.7rem;
+            }
+            .week-title {
+                font-size: 0.82rem;
+            }
+            .toolbar {
+                justify-content: center;
+            }
+            .quick-jump {
+                justify-content: center;
+            }
+            .quick-jump .chip {
+                font-size: 0.7rem;
+                padding: 0.3rem 0.7rem;
+            }
+            .tab-nav {
+                flex-direction: column;
+                border-radius: 20px;
+            }
+            .tab-btn {
+                width: 100%;
+                border-radius: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h2 class="sr-only">30-week AI Engineer roadmap with weekly tasks, progress tracking, notes, dark mode, and resource list</h2>
+
+    <div class="roadmap">
+        <!-- ── Tabs ───────────────────────── -->
+        <div class="tab-nav">
+            <button class="tab-btn active" id="tab-roadmap" onclick="switchTab('roadmap')">🗺️ Roadmap</button>
+            <button class="tab-btn" id="tab-resources" onclick="switchTab('resources')">📚 Resources</button>
+        </div>
+
+        <!-- ── Roadmap View ───────────────── -->
+        <div id="roadmap-view">
+            <!-- Toolbar -->
+            <div class="toolbar">
+                <button onclick="exportData()" title="Export progress & notes as JSON">📥 Export</button>
+                <button onclick="document.getElementById('import-file').click()" title="Import progress & notes from JSON">📤 Import</button>
+                <input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(event)">
+                <button class="btn-icon" id="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">🌙</button>
+                <button class="btn-danger" onclick="resetAll()" title="Reset all progress and notes">Reset all</button>
+            </div>
+
+            <!-- Dashboard -->
+            <div class="dashboard" id="dashboard">
+                <div class="dash-ring-wrap">
+                    <svg viewBox="0 0 120 120">
+                        <circle class="dash-ring-bg" cx="60" cy="60" r="52"/>
+                        <circle class="dash-ring-fill" id="dash-ring-fill" cx="60" cy="60" r="52"
+                        stroke-dasharray="326.73" stroke-dashoffset="326.73"/>
+                    </svg>
+                    <div class="dash-ring-center">
+                        <div class="dash-ring-pct" id="dash-pct">0%</div>
+                        <div class="dash-ring-label">complete</div>
+                    </div>
+                </div>
+                <div class="dash-stats">
+                    <div class="dash-stat-row"><span class="stat-icon">📍</span> <span>Current: <strong id="dash-current">Phase 1 · Week 1</strong></span></div>
+                    <div class="dash-stat-row"><span class="stat-icon">🏁</span> <span>Next milestone: <strong id="dash-milestone">Week 8</strong></span></div>
+                    <div class="dash-stat-row"><span class="stat-icon">⏳</span> <span>Remaining: <strong id="dash-remaining">30 weeks</strong></span></div>
+                    <div class="dash-motivation" id="dash-motivation">Ready to begin the journey! 🚀</div>
+                </div>
+            </div>
+
+            <!-- Quick Jump -->
+            <div class="quick-jump" id="quick-jump"></div>
+
+            <!-- Progress Bar -->
+            <div class="progress-bar-wrap">
+                <div class="progress-top">
+                    <span class="progress-label">Overall progress</span>
+                    <span class="progress-count" id="global-count">0 / 30 weeks</span>
+                </div>
+                <div class="progress-track"><div class="progress-fill" id="global-bar" style="width:0%"></div></div>
+            </div>
+
+            <!-- Search -->
+            <div class="search-wrap">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="search-input" placeholder="Search weeks, tasks, or labels…" oninput="onSearch(this.value)">
+                <button class="search-clear" id="search-clear" onclick="clearSearch()" title="Clear search">✕</button>
+            </div>
+
+            <!-- Phases -->
+            <div id="phases"></div>
+        </div>
+
+        <!-- ── Resources View ─────────────── -->
+        <div id="resources-view" style="display:none;">
+            <div class="resources-container" id="resources-content"></div>
+        </div>
+    </div>
+
+    <!-- ── Confetti Container ────────────── -->
+    <div class="confetti-container" id="confetti-container"></div>
+
+    <!-- ── Toast ─────────────────────────── -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        const phases = [{
+            id: 'p1',
+            label: 'Phase 1',
+            title: 'Mathematical Foundations',
+            weeks: 'Weeks 1–8',
+            goal: 'Build the math needed for ML, deep learning, transformers, embeddings, and LLMs.',
+            color: '#E6F1FB',
+            textColor: '#0C447C',
+            weeks_data: [
+                { num: 1, title: 'Vectors & linear systems + environment setup', sections: [{ label: 'Gilbert Strang',
+                            items: [
+                                'Lectures 1–4: linear equations, matrix representation, elimination, matrix multiplication'
+                                ] }, { label: 'Math for ML',
+                            items: ['Chapter 2: vectors and vector operations'] }, { label: 'Deep-ML',
+                            items: ['Matrix × Vector, Matrix Transformation, Matrix Addition, Matrix Multiplication'] },
+                        { label: 'TorchLeet',
+                            items: ['PyTorch Basics Track — first 5 problems (tensor creation, indexing)'] }, {
+                            label: 'Setup',
+                            items: [
+                                'Configure Python env, Jupyter/Colab, GPU access (Colab free tier), run first tensor op'
+                                ] }, { label: 'AI Engineer Roadmap',
+                            items: [
+                                'What is AI Engineering, AI Engineer vs ML Engineer, LLMs overview, AI vs AGI'
+                                ] }, ],
+                        note: 'Spend ~1hr on environment setup Day 1. Having it done now saves 5hrs of pain at Week 9.' },
+                { num: 2, title: 'Vector spaces', sections: [{ label: 'Gilbert Strang',
+                            items: ['Lectures 5–8: independence, basis, vector spaces'] }, { label: 'Math for ML',
+                            items: ['Span, Basis, Subspaces'] }, { label: 'Deep-ML',
+                            items: ['Linear Independence, Rank of Matrix, basis-related problems'] },
+                        { label: 'TorchLeet', items: ['PyTorch Basics Track — problems 6–15'] }, ] },
+                { num: 3, title: 'Orthogonality & projections', sections: [{ label: 'Gilbert Strang',
+                            items: ['Lectures 9–12'] }, { label: 'Math for ML',
+                            items: ['Orthogonality, Projections'] }, { label: 'Deep-ML',
+                            items: ['Dot Product, Cosine Similarity, Orthogonal Projection'] },
+                        { label: 'AI Engineer Roadmap',
+                            items: ['OpenAI Models, Claude, Gemini, Context Windows'] }, ] },
+                { num: 4, title: 'Eigenvalues & eigenvectors', sections: [{ label: 'Gilbert Strang',
+                            items: ['Lectures 13–18'] }, { label: 'Math for ML',
+                            items: ['Eigenvalues, Eigenvectors'] }, { label: 'Deep-ML',
+                            items: ['Power Method, Eigenvalue Problems, Matrix Diagonalization'] },
+                        { label: 'TorchLeet', items: ['Tensor Algebra Collection'] }, ] },
+                { num: 5, title: 'SVD & dimensionality', sections: [{ label: 'Gilbert Strang',
+                            items: ['Lectures 19–22'] }, { label: 'Math for ML',
+                            items: ['Singular Value Decomposition'] }, { label: 'Deep-ML',
+                            items: ['SVD, Low-Rank Approximation'] }, { label: 'AI Engineer Roadmap',
+                            items: ['Hugging Face, Open Source Models, Ollama'] }, ] },
+                { num: 6, title: 'Probability', sections: [{ label: 'Math for ML',
+                            items: ['Full probability chapter'] }, { label: 'Deep-ML',
+                            items: ["Bayes' Theorem, Probability Distributions, Conditional Probability"] },
+                        { label: 'TorchLeet', items: ['Tensor Manipulation Collection'] }, ] },
+                { num: 7, title: 'Statistics', sections: [{ label: 'Math for ML', items: ['Statistics chapter'] },
+                        { label: 'Deep-ML', items: ['Variance, Covariance, Correlation'] }, {
+                            label: 'AI Engineer Roadmap',
+                            items: ['Prompt Engineering Basics, Tokenization Concepts'] }, ] },
+                { num: 8, title: 'Calculus + Phase 1 milestone', sections: [{ label: 'Math for ML',
+                            items: ['Calculus chapter'] }, { label: 'Deep-ML',
+                            items: ['Numerical Gradient, Partial Derivatives, Chain Rule Exercises'] }, ],
+                    milestone: 'Build: linear regression from scratch + gradient descent from scratch (pure NumPy, no ML libs)' }, ]
+        }, {
+            id: 'p2',
+            label: 'Phase 2',
+            title: 'Neural Networks',
+            weeks: 'Weeks 9–14',
+            goal: 'Understand deep learning completely before touching transformers.',
+            color: '#EEEDFE',
+            textColor: '#3C3489',
+            weeks_data: [
+                { num: 9, title: 'Neurons, layers & forward pass', sections: [{ label: 'NNFS',
+                            items: ['Chapters 1–3: neurons, dense layers, forward pass'] }, { label: 'Deep-ML',
+                            items: ['Single Neuron, Forward Propagation'] }, { label: 'TorchLeet',
+                            items: ['Linear Layers Collection'] }, ],
+                    note: 'Your Colab/GPU setup from Week 1 pays off here. Use it for all NNFS code.' },
+                { num: 10, title: 'Activation functions', sections: [{ label: 'NNFS',
+                            items: ['Chapters 4–5: activation functions, ReLU, Softmax'] }, { label: 'Deep-ML',
+                            items: ['Softmax, Activation Functions'] }, { label: 'TorchLeet',
+                            items: ['Activation Problems'] }, ] },
+                { num: 11, title: 'Loss functions', sections: [{ label: 'NNFS',
+                            items: ['Chapters 6–8: loss functions, Cross-Entropy'] }, { label: 'Deep-ML',
+                            items: ['Cross-Entropy, Classification Metrics'] }, ] },
+                { num: 12, title: 'Backpropagation', sections: [{ label: 'NNFS',
+                            items: ['Chapters 9–11: backpropagation'] }, { label: 'Deep-ML',
+                            items: ['Gradient Computation, Backprop Problems'] }, { label: 'TorchLeet',
+                            items: ['Autograd Collection'] }, ] },
+                { num: 13, title: 'Optimizers', sections: [{ label: 'NNFS',
+                            items: ['Chapters 12–15: optimizers, SGD, Adam'] }, { label: 'Deep-ML',
+                            items: ['Gradient Descent, Adam Optimizer'] }, ] },
+                { num: 14, title: 'Regularization + Phase 2 milestone', sections: [{ label: 'NNFS',
+                            items: ['Remaining chapters: regularization, dropout'] }, ],
+                    milestone: 'Build: MNIST classifier with fully-connected network. Target >97% accuracy.' }, ]
+        }, {
+            id: 'p3',
+            label: 'Phase 3',
+            title: 'Transformers & LLM Internals',
+            weeks: 'Weeks 15–20',
+            goal: 'Reach GPT-level understanding of how large language models work.',
+            color: '#FAEEDA',
+            textColor: '#633806',
+            weeks_data: [
+                { num: 15, title: 'Why LLMs work + GPT overview', sections: [{ label: 'LLM Book',
+                            items: ['Chapter 1: why LLMs work, GPT overview'] },
+                        { label: 'AI Engineer Roadmap', items: ['Inference, Training'] }, { label: 'TorchLeet',
+                            items: ['NLP Foundations Track'] }, ] },
+                { num: 16, title: 'Tokenization', sections: [{ label: 'LLM Book',
+                            items: ['Chapter 2: tokenization, BPE, vocabulary'] }, { label: 'Deep-ML',
+                            items: ['Text Processing Problems'] }, { label: 'TorchLeet',
+                            items: ['Tokenization Exercises'] }, ] },
+                { num: 17, title: 'Embeddings', sections: [{ label: 'LLM Book',
+                            items: ['Chapter 3: embeddings'] }, { label: 'AI Engineer Roadmap',
+                            items: ['Embeddings, Embedding APIs, Sentence Transformers'] }, { label: 'Deep-ML',
+                            items: ['Embedding Similarity, Semantic Search'] }, ] },
+                { num: 18, title: 'Attention mechanisms + start paper reading', sections: [{ label: 'LLM Book',
+                            items: ['Chapter 4: attention, self-attention, multi-head attention'] },
+                        { label: 'TorchLeet', items: ['Attention Track'] }, { label: 'Deep-ML',
+                            items: ['Attention Problems'] }, { label: 'Papers',
+                            items: ['"Attention Is All You Need" (Vaswani et al., 2017) — read fully'] }, ],
+                    note: 'Paper reading starts here. Budget 1–1.5hrs/day on papers from now through Week 23. This is what separates AI Engineers from engineers who use AI tools.' },
+                { num: 19, title: 'Transformer block & GPT architecture', sections: [{ label: 'LLM Book',
+                            items: ['Chapter 5: transformer block, GPT architecture'] }, { label: 'TorchLeet',
+                            items: ['Transformer Collection'] }, { label: 'Papers',
+                            items: ['BERT (Devlin et al., 2018), GPT-1 (Radford et al., 2018)'] }, ] },
+                { num: 20, title: 'Mini GPT milestone', sections: [{ label: 'TorchLeet',
+                            items: ['GPT Internals, Positional Encoding'] }, { label: 'Papers',
+                            items: ['GPT-2 (Radford et al., 2019)'] }, ],
+                    milestone: 'Implement a mini GPT (character-level language model). Must train and generate coherent text.' }, ]
+        }, {
+            id: 'p4',
+            label: 'Phase 4',
+            title: 'LLM Training & Fine-tuning',
+            weeks: 'Weeks 21–24',
+            goal: 'Understand how models are pretrained, fine-tuned, and aligned. Expanded to 4 weeks.',
+            color: '#FAECE7',
+            textColor: '#712B13',
+            weeks_data: [
+                { num: 21, title: 'Pretraining', sections: [{ label: 'LLM Book',
+                            items: ['Chapter 6: pretraining'] }, { label: 'Deep-ML',
+                            items: ['Language Modeling problems'] }, { label: 'TorchLeet',
+                            items: ['Training Loops'] }, { label: 'Papers',
+                            items: ['GPT-3 (Brown et al., 2020)'] }, ] },
+                { num: 22, title: 'Fine-tuning & LoRA', sections: [{ label: 'LLM Book',
+                            items: ['Chapter 7: fine-tuning'] }, { label: 'AI Engineer Roadmap',
+                            items: ['OpenAI Fine-tuning, Model Selection'] }, { label: 'Papers',
+                            items: ['LoRA (Hu et al., 2021) — key paper for efficient fine-tuning'] }, ] },
+                { num: 23, title: 'Instruction tuning, RLHF & DPO', sections: [{ label: 'LLM Book',
+                            items: ['Remaining chapters: instruction tuning, chat models'] }, { label: 'Papers',
+                            items: ['RLHF (Ziegler et al., 2019), DPO (Rafailov et al., 2023)'] }, ] },
+                { num: 24, title: 'GPT chatbot milestone', sections: [{ label: 'Papers',
+                            items: ['RAG paper (Lewis et al., 2020) — read ahead of Phase 5'] }, ],
+                    milestone: 'Build: GPT chatbot with fine-tuned personality or domain expertise. Deploy to Hugging Face Spaces.' }, ]
+        }, {
+            id: 'p5',
+            label: 'Phase 5',
+            title: 'AI Engineer Core Stack',
+            weeks: 'Weeks 25–28',
+            goal: 'Production AI systems. Vector DBs, RAG, Agents, Multimodal.',
+            color: '#E1F5EE',
+            textColor: '#085041',
+            weeks_data: [
+                { num: 25, title: 'Vector databases', sections: [{ label: 'Study',
+                            items: ['Chroma (start here), FAISS, Pinecone — understand tradeoffs'] },
+                        { label: 'AI Engineer Roadmap', items: ['Vector Database section fully'] },
+                        { label: 'TorchLeet', items: ['Embeddings Collection'] }, ],
+                    milestone: 'Build: semantic search engine over a custom document set using Chroma + Sentence Transformers' },
+                { num: 26, title: 'RAG', sections: [{ label: 'Study',
+                            items: ['Chunking strategies, retrieval methods, generation pipeline'] },
+                        { label: 'AI Engineer Roadmap',
+                            items: ['RAG & Implementation section, LangChain, LlamaIndex'] }, ],
+                    milestone: 'Build: PDF chatbot — upload any PDF, ask questions, get cited answers' },
+                { num: 27, title: 'AI Agents', sections: [{ label: 'Study',
+                            items: ['ReAct prompting, tool calling, function calling patterns'] },
+                        { label: 'AI Engineer Roadmap',
+                        items: ['Agents section, OpenAI Functions/Tools'] }, { label: 'TorchLeet',
+                            items: ['Agent Collection'] }, ],
+                    milestone: 'Build: research agent that searches the web + summarizes + cites sources' },
+                { num: 28, title: 'Multimodal AI', sections: [{ label: 'Study',
+                            items: [
+                                'Vision models (CLIP, LLaVA), Whisper (speech-to-text), DALL-E / SD (image gen)'
+                                ] }, { label: 'AI Engineer Roadmap', items: ['Multimodal section fully'] }, ],
+                    milestone: 'Build: image Q&A app + speech-to-text transcription pipeline' }, ]
+        }, {
+            id: 'p6',
+            label: 'Phase 6',
+            title: 'Mastery & Capstone',
+            weeks: 'Weeks 29–30',
+            goal: 'Consolidate everything, fill gaps, ship a complete AI platform.',
+            color: '#F1EFE8',
+            textColor: '#2C2C2A',
+            weeks_data: [
+                { num: 29, title: 'Deep-ML sweep + TorchLeet advanced tracks', sections: [{ label: 'Deep-ML',
+                            items: ['Solve every remaining unsolved problem across all categories'] },
+                        { label: 'TorchLeet',
+                            items: ['CNN Track, RNN Track, Transformer Track — finish all'] }, { label: 'Review',
+                            items: ['Revisit any week where you felt shaky. Use this as buffer.'] }] },
+                { num: 30, title: 'Capstone platform — 2 weeks recommended', sections: [{ label: 'Build', items: [
+                            'User auth (Clerk or Supabase Auth)', 'File upload (PDF / images)',
+                            'RAG pipeline over uploaded files', 'Agent with web search + tool use',
+                            'Chat interface with streaming', 'Multimodal support (image input)',
+                            'OpenAI + Ollama (open source) model toggle',
+                            'Vector database (Chroma or Pinecone)',
+                        ] }, ],
+                    note: 'This is a 2-week project compressed into 1. Either take an extra week (highly recommended) or scope down: auth + RAG + agents + chat is already a strong portfolio piece. Multimodal can ship post-30.' }, ]
+        }];
+
+        // ── State ──────────────────────────
+        let completed = new Set(JSON.parse(localStorage.getItem('aiml_done') || '[]'));
+        let notes = JSON.parse(localStorage.getItem('aiml_notes') || '{}');
+        let currentFilter = '';
+        let focusedWeekNum = null;
+        const TOTAL_WEEKS = 30;
+        const CIRCUMFERENCE = 2 * Math.PI * 52;
+
+        function save() {
+            localStorage.setItem('aiml_done', JSON.stringify([...completed]));
+        }
+
+        function saveNotes() {
+            localStorage.setItem('aiml_notes', JSON.stringify(notes));
+        }
+
+        // ── Tab Switching ──────────────────
+        function switchTab(tab) {
+            document.getElementById('roadmap-view').style.display = tab === 'roadmap' ? 'block' : 'none';
+            document.getElementById('resources-view').style.display = tab === 'resources' ? 'block' : 'none';
+            document.getElementById('tab-roadmap').classList.toggle('active', tab === 'roadmap');
+            document.getElementById('tab-resources').classList.toggle('active', tab === 'resources');
+
+            if (tab === 'resources') {
+                generateResources();
+            }
+        }
+
+        function generateResources() {
+            const container = document.getElementById('resources-content');
+            // Extract unique resources and papers
+            const resourceMap = new Map();
+            const allPapers = [];
+
+            phases.forEach(phase => {
+                phase.weeks_data.forEach(week => {
+                    week.sections.forEach(section => {
+                        const label = section.label;
+                        if (!resourceMap.has(label)) {
+                            resourceMap.set(label, []);
+                        }
+                        if (label === 'Papers') {
+                            allPapers.push(...section.items);
+                        } else {
+                            resourceMap.get(label).push(...section.items);
+                        }
+                    });
+                });
+            });
+
+            // Define descriptions for known resources
+            const descriptions = {
+                'Gilbert Strang': 'MIT 18.06 Linear Algebra lectures (YouTube / MIT OCW)',
+                'Math for ML': 'Mathematics for Machine Learning (Deisenroth et al.) — free PDF',
+                'NNFS': 'Neural Networks from Scratch (Harrison Kinsley & Daniel Kukieła)',
+                'LLM Book': 'Build a Large Language Model (From Scratch) by Sebastian Raschka',
+                'Deep-ML': 'Deep-ML.com — interactive ML coding challenges',
+                'TorchLeet': 'TorchLeet — PyTorch practice problems & tracks',
+                'AI Engineer Roadmap': 'roadmap.sh/ai-engineer — comprehensive AI Engineer guide',
+                'Papers': 'Key research papers (listed separately below)',
+                'Study': 'General study resources / references',
+                'Build': 'Project building & implementation guides',
+                'Review': 'Review & recap materials',
+                'Setup': 'Development environment setup guides',
+            };
+
+            let html = '<h2 style="margin-bottom:1rem;">📚 All Learning Resources</h2>';
+
+            // Group resources
+            const mainResources = [];
+            const otherResources = [];
+            for (const [label, items] of resourceMap.entries()) {
+                if (label === 'Papers') continue;
+                const desc = descriptions[label] || '';
+                mainResources.push({ label, desc, count: items.length });
+            }
+
+            // Sort main resources alphabetically
+            mainResources.sort((a, b) => a.label.localeCompare(b.label));
+
+            html += '<div class="resource-group"><h3>📖 Primary Resources</h3><ul class="resource-list">';
+            mainResources.forEach(r => {
+                html += `<li><span class="resource-bullet"></span><strong>${r.label}</strong> <span class="resource-desc">— ${r.desc}</span></li>`;
+            });
+            html += '</ul></div>';
+
+            // Papers
+            if (allPapers.length > 0) {
+                html += '<div class="resource-group"><h3>📄 Research Papers</h3><ul class="resource-list">';
+                const uniquePapers = [...new Set(allPapers)];
+                uniquePapers.forEach(paper => {
+                    html += `<li class="paper-item"><span class="resource-bullet" style="background:#F0A92D;"></span>${paper}</li>`;
+                });
+                html += '</ul></div>';
+            }
+
+            container.innerHTML = html;
+        }
+
+        // ── Theme ──────────────────────────
+        function applyTheme() {
+            const saved = localStorage.getItem('aiml_theme');
+            if (saved === 'dark') {
+                document.body.classList.add('dark');
+                document.getElementById('theme-toggle').textContent = '☀️';
+            } else {
+                document.body.classList.remove('dark');
+                document.getElementById('theme-toggle').textContent = '🌙';
+            }
+        }
+
+        function toggleTheme() {
+            if (document.body.classList.contains('dark')) {
+                document.body.classList.remove('dark');
+                localStorage.setItem('aiml_theme', 'light');
+                document.getElementById('theme-toggle').textContent = '🌙';
+            } else {
+                document.body.classList.add('dark');
+                localStorage.setItem('aiml_theme', 'dark');
+                document.getElementById('theme-toggle').textContent = '☀️';
+            }
+        }
+        applyTheme();
+
+        // ── Toast ──────────────────────────
+        let toastTimer;
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+        }
+
+        // ── Confetti ───────────────────────
+        function spawnConfetti(x, y) {
+            const container = document.getElementById('confetti-container');
+            const emojis = ['✨', '🎉', '⭐', '💫', '🌟', '🎯', '🔥', '💎'];
+            const count = 28;
+            const fragment = document.createDocumentFragment();
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('span');
+                particle.className = 'confetti-particle';
+                particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.setProperty('--dx', (Math.random() * 180 - 90) + 'px');
+                particle.style.setProperty('--dy', -(Math.random() * 160 + 60) + 'px');
+                particle.style.setProperty('--rot', (Math.random() * 540 - 270) + 'deg');
+                particle.style.animationDuration = (1 + Math.random() * 1.2) + 's';
+                fragment.appendChild(particle);
+            }
+            container.appendChild(fragment);
+            setTimeout(() => {
+                while (container.firstChild) container.removeChild(container.firstChild);
+            }, 1800);
+        }
+
+        // ── Progress Updates ───────────────
+        function updateProgress() {
+            const done = completed.size;
+            document.getElementById('global-count').textContent = done + ' / ' + TOTAL_WEEKS + ' weeks';
+            document.getElementById('global-bar').style.width = (done / TOTAL_WEEKS * 100) + '%';
+
+            const pct = Math.round((done / TOTAL_WEEKS) * 100);
+            const offset = CIRCUMFERENCE - (pct / 100) * CIRCUMFERENCE;
+            document.getElementById('dash-ring-fill').style.strokeDashoffset = offset;
+            document.getElementById('dash-pct').textContent = pct + '%';
+
+            let currentPhaseLabel = 'Phase 1';
+            let currentWeekNum = 1;
+            let nextMilestone = null;
+            let foundCurrent = false;
+
+            for (const phase of phases) {
+                for (const w of phase.weeks_data) {
+                    if (!completed.has(w.num) && !foundCurrent) {
+                        currentPhaseLabel = phase.label;
+                        currentWeekNum = w.num;
+                        foundCurrent = true;
+                    }
+                    if (!completed.has(w.num) && w.milestone && !nextMilestone) {
+                        nextMilestone = 'Week ' + w.num + ' — ' + w.milestone.substring(0, 50) + '…';
+                    }
+                }
+            }
+            if (!nextMilestone) nextMilestone = 'All milestones completed! 🎉';
+            if (completed.size >= TOTAL_WEEKS) {
+                currentPhaseLabel = 'Phase 6';
+                currentWeekNum = 30;
+            }
+
+            document.getElementById('dash-current').textContent = currentPhaseLabel + ' · Week ' + currentWeekNum;
+            document.getElementById('dash-milestone').textContent = nextMilestone;
+            document.getElementById('dash-remaining').textContent = (TOTAL_WEEKS - completed.size) + ' weeks';
+
+            const pctDone = Math.round((completed.size / TOTAL_WEEKS) * 100);
+            let motivation = '';
+            if (pctDone === 0) motivation = 'Ready to begin the journey! 🚀';
+            else if (pctDone < 15) motivation = 'Great start — keep the momentum! 💪';
+            else if (pctDone < 35) motivation = 'Solid progress, you\'re building real skills! 🔥';
+            else if (pctDone < 55) motivation = 'Halfway there — the foundation is set! ⚡';
+            else if (pctDone < 75) motivation = 'You\'re in the deep work zone — keep pushing! 🎯';
+            else if (pctDone < 95) motivation = 'Almost there — finish line in sight! 🏆';
+            else if (pctDone < 100) motivation = 'One week left — give it everything! 🌟';
+            else motivation = 'All 30 weeks complete — you\'re an AI Engineer! 🎉👑';
+            document.getElementById('dash-motivation').textContent = motivation;
+
+            document.querySelectorAll('.quick-jump .chip').forEach(chip => {
+                chip.classList.toggle('active-chip', chip.dataset.phaseId ===
+                    (foundCurrent ? phases.find(p => p.label === currentPhaseLabel)?.id : 'p6'));
+            });
+        }
+
+        // ── Toggle Functions ────────────────
+        function toggleCheck(e, weekNum) {
+            e.stopPropagation();
+            const wasCompleted = completed.has(weekNum);
+            if (wasCompleted) {
+                completed.delete(weekNum);
+            } else {
+                completed.add(weekNum);
+                if (!localStorage.getItem('aiml_start_date')) {
+                    localStorage.setItem('aiml_start_date', new Date().toISOString().split('T')[0]);
+                }
+                const rect = e.target.getBoundingClientRect();
+                spawnConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2);
+                showToast('✅ Week ' + weekNum + ' completed!');
+            }
+            save();
+            renderAll();
+        }
+
+        function toggleWeek(weekId) {
+            const body = document.getElementById('wb-' + weekId);
+            if (body) body.classList.toggle('open');
+        }
+
+        function togglePhase(phaseId) {
+            const body = document.getElementById('pb-' + phaseId);
+            const icon = document.getElementById('pi-' + phaseId);
+            if (body) body.classList.toggle('open');
+            if (icon) icon.classList.toggle('open');
+            if (focusedWeekNum) {
+                setTimeout(() => focusWeekCard(focusedWeekNum), 500);
+            }
+        }
+
+        function markPhaseAll(phaseId, e) {
+            e.stopPropagation();
+            const phase = phases.find(p => p.id === phaseId);
+            if (!phase) return;
+            const allNums = phase.weeks_data.map(w => w.num);
+            const allDone = allNums.every(n => completed.has(n));
+            if (allDone) {
+                allNums.forEach(n => completed.delete(n));
+                showToast('↩️ ' + phase.label + ' unmarked');
+            } else {
+                const newlyCompleted = allNums.filter(n => !completed.has(n));
+                allNums.forEach(n => completed.add(n));
+                if (newlyCompleted.length > 0 && !localStorage.getItem('aiml_start_date')) {
+                    localStorage.setItem('aiml_start_date', new Date().toISOString().split('T')[0]);
+                }
+                showToast('✅ ' + phase.label + ' fully completed!');
+                const rect = e.target.getBoundingClientRect();
+                spawnConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2);
+            }
+            save();
+            renderAll();
+        }
+
+        function handleNoteInput(weekNum, value) {
+            if (value.trim()) {
+                notes[weekNum] = value.trim();
+            } else {
+                delete notes[weekNum];
+            }
+            saveNotes();
+            const btn = document.querySelector('.week-note-btn[data-week="' + weekNum + '"]');
+            if (btn) btn.classList.toggle('has-note', !!notes[weekNum]);
+        }
+
+        // ── Search ─────────────────────────
+        function onSearch(value) {
+            currentFilter = value.trim().toLowerCase();
+            const clearBtn = document.getElementById('search-clear');
+            if (currentFilter) {
+                clearBtn.classList.add('visible');
+            } else {
+                clearBtn.classList.remove('visible');
+            }
+            renderAll();
+        }
+
+        function clearSearch() {
+            document.getElementById('search-input').value = '';
+            currentFilter = '';
+            document.getElementById('search-clear').classList.remove('visible');
+            renderAll();
+            document.getElementById('search-input').focus();
+        }
+
+        function matchesFilter(weekData, phaseData) {
+            if (!currentFilter) return true;
+            const haystack = [
+                phaseData.title,
+                phaseData.goal,
+                phaseData.label,
+                weekData.title,
+                'week ' + weekData.num,
+                ...(weekData.sections || []).flatMap(s => [s.label, ...s.items]),
+                weekData.milestone || '',
+                weekData.note || '',
+                notes[weekData.num] || '',
+            ].join(' ').toLowerCase();
+            return haystack.includes(currentFilter);
+        }
+
+        // ── Render ─────────────────────────
+        function renderAll() {
+            const container = document.getElementById('phases');
+            container.innerHTML = '';
+
+            const qj = document.getElementById('quick-jump');
+            qj.innerHTML = phases.map(p => {
+                const doneW = p.weeks_data.filter(w => completed.has(w.num)).length;
+                return `<span class="chip" data-phase-id="${p.id}" onclick="scrollToPhase('${p.id}')" style="background:${p.color}20;color:${p.textColor};border-color:${p.color}">${p.label} (${doneW}/${p.weeks_data.length})</span>`;
+            }).join('');
+
+            phases.forEach(phase => {
+                const totalWeeks = phase.weeks_data.length;
+                const doneWeeks = phase.weeks_data.filter(w => completed.has(w.num)).length;
+                const pDiv = document.createElement('div');
+                pDiv.style.marginBottom = '1.5rem';
+                pDiv.id = 'phase-' + phase.id;
+
+                let weeksHtml = '';
+                let anyWeekMatches = false;
+
+                phase.weeks_data.forEach(w => {
+                    const isDone = completed.has(w.num);
+                    const weekMatches = matchesFilter(w, phase);
+                    if (weekMatches) anyWeekMatches = true;
+                    if (!weekMatches && currentFilter) return;
+
+                    let sectionsHtml = '';
+                    w.sections.forEach(s => {
+                        const tagMap = {
+                            'Gilbert Strang': 'tag-strang',
+                            'Math for ML': 'tag-mml',
+                            'NNFS': 'tag-nnfs',
+                            'LLM Book': 'tag-llm',
+                            'Deep-ML': 'tag-deepml',
+                            'TorchLeet': 'tag-torchleet',
+                            'AI Engineer Roadmap': 'tag-ai-eng',
+                            'Papers': 'tag-note',
+                            'Study': 'tag-deepml',
+                            'Build': 'tag-project',
+                            'Review': 'tag-mml',
+                            'Setup': 'tag-project'
+                        };
+                        const tagClass = tagMap[s.label] || 'tag-project';
+                        sectionsHtml += `<div class="task-section">
+                  <div class="task-section-label"><span class="tag ${tagClass}">${s.label}</span></div>
+                  <div class="task-list">${s.items.map(i => `<div class="task-item"><div class="task-dot"></div><span>${i}</span></div>`).join('')}</div>
+                </div>`;
+                    });
+
+                    const hasNote = !!notes[w.num];
+                    sectionsHtml = `
+                <textarea class="week-note-input" placeholder="📝 Personal notes for Week ${w.num}…" 
+                  oninput="handleNoteInput(${w.num}, this.value)" 
+                  onblur="handleNoteInput(${w.num}, this.value)">${notes[w.num] || ''}</textarea>
+                ${sectionsHtml}`;
+
+                    if (w.note) {
+                        sectionsHtml +=
+                            `<div class="note-box"><span class="note-icon">💡</span><span>${w.note}</span></div>`;
+                    }
+                    if (w.milestone) {
+                        sectionsHtml +=
+                            `<div class="milestone"><span>🏆</span><span>${w.milestone}</span></div>`;
+                    }
+
+                    weeksHtml += `<div class="week-card" style="${isDone ? 'opacity:0.65' : ''}" data-week-num="${w.num}">
+                <div class="week-header" onclick="toggleWeek(${w.num})">
+                  <span class="week-num">Week ${w.num}</span>
+                  <span class="week-title">${w.title}</span>
+                  <button class="week-note-btn ${hasNote ? 'has-note' : ''}" data-week="${w.num}" 
+                    onclick="event.stopPropagation(); toggleWeek(${w.num}); setTimeout(()=>document.getElementById('note-${w.num}').focus(),400)"
+                    title="Add/edit note">📝</button>
+                  <div class="week-check ${isDone ? 'done' : ''}" onclick="toggleCheck(event,${w.num})"
+                    title="${isDone ? 'Mark incomplete' : 'Mark complete'}" role="checkbox" aria-checked="${isDone}"
+                    aria-label="Week ${w.num} complete"></div>
+                </div>
+                <div class="week-body" id="wb-${w.num}">${sectionsHtml}</div>
+              </div>`;
+                });
+
+                if (currentFilter && !anyWeekMatches) {
+                    // Don't render phase if no weeks match
+                    return;
+                }
+
+                const phaseOpen = currentFilter ? anyWeekMatches : true;
+                pDiv.innerHTML = `<div class="phase-header" onclick="togglePhase('${phase.id}')">
+              <div class="phase-icon" style="background:${phase.color};color:${phase.textColor}">${phase.label}</div>
+              <div class="phase-title"><h2>${phase.title}</h2><p>${phase.weeks} · ${phase.goal}</p></div>
+              <button class="phase-check-all" onclick="markPhaseAll('${phase.id}',event)" title="Mark/unmark all weeks in ${phase.label}">
+                ${doneWeeks === totalWeeks ? '↩️ All' : '✓ All'}
+              </button>
+              <span class="phase-progress">${doneWeeks}/${totalWeeks}</span>
+              <i class="ti ti-chevron-down phase-toggle ${phaseOpen ? 'open' : ''}" id="pi-${phase.id}" aria-hidden="true">▼</i>
+            </div>
+            <div class="phase-body ${phaseOpen ? 'open' : ''}" id="pb-${phase.id}">${weeksHtml || (currentFilter ? '<div style="padding:1rem;color:var(--text-tertiary);font-style:italic;text-align:center">No matching weeks in this phase</div>' : '')}</div>`;
+                container.appendChild(pDiv);
+            });
+
+            if (focusedWeekNum) {
+                setTimeout(() => focusWeekCard(focusedWeekNum), 100);
+            }
+            updateProgress();
+        }
+
+        function focusWeekCard(weekNum) {
+            document.querySelectorAll('.week-card.focused').forEach(el => el.classList.remove('focused'));
+            const card = document.querySelector(`.week-card[data-week-num="${weekNum}"]`);
+            if (card) {
+                card.classList.add('focused');
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                const phaseBody = card.closest('.phase-body');
+                if (phaseBody && !phaseBody.classList.contains('open')) {
+                    phaseBody.classList.add('open');
+                    const phaseId = phaseBody.id.replace('pb-', '');
+                    const icon = document.getElementById('pi-' + phaseId);
+                    if (icon) icon.classList.add('open');
+                }
+                const weekBody = card.querySelector('.week-body');
+                if (weekBody && !weekBody.classList.contains('open')) {
+                    weekBody.classList.add('open');
+                }
+                focusedWeekNum = weekNum;
+            }
+        }
+
+        function scrollToPhase(phaseId) {
+            const el = document.getElementById('phase-' + phaseId);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                const body = document.getElementById('pb-' + phaseId);
+                const icon = document.getElementById('pi-' + phaseId);
+                if (body && !body.classList.contains('open')) {
+                    body.classList.add('open');
+                    if (icon) icon.classList.add('open');
+                }
+                const header = el.querySelector('.phase-header');
+                if (header) {
+                    header.style.boxShadow = '0 0 0 4px rgba(59,130,246,0.35)';
+                    setTimeout(() => { header.style.boxShadow = ''; }, 1200);
+                }
+            }
+        }
+
+        // ── Keyboard Navigation ────────────
+        document.addEventListener('keydown', function(e) {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            if (e.ctrlKey || e.metaKey || e.altKey) return;
+
+            const visibleCards = Array.from(document.querySelectorAll('.week-card:not(.filtered-out)'))
+                .filter(card => {
+                    const phaseBody = card.closest('.phase-body');
+                    return phaseBody && phaseBody.classList.contains('open');
+                });
+
+            if (visibleCards.length === 0) return;
+
+            let currentIdx = visibleCards.findIndex(card => card.classList.contains('focused'));
+            if (currentIdx === -1) currentIdx = 0;
+
+            if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (e.key === 'ArrowDown') {
+                    currentIdx = Math.min(currentIdx + 1, visibleCards.length - 1);
+                } else {
+                    currentIdx = Math.max(currentIdx - 1, 0);
+                }
+                const card = visibleCards[currentIdx];
+                const weekNum = parseInt(card.dataset.weekNum);
+                focusedWeekNum = weekNum;
+                focusWeekCard(weekNum);
+            }
+
+            if (e.key === ' ' && focusedWeekNum !== null) {
+                e.preventDefault();
+                const card = document.querySelector(`.week-card[data-week-num="${focusedWeekNum}"]`);
+                if (card) {
+                    const checkEl = card.querySelector('.week-check');
+                    if (checkEl) {
+                        const fakeEvent = { stopPropagation: () => {}, target: checkEl };
+                        toggleCheck(fakeEvent, focusedWeekNum);
+                    }
+                }
+            }
+
+            if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+                if (focusedWeekNum) {
+                    const card = document.querySelector(`.week-card[data-week-num="${focusedWeekNum}"]`);
+                    if (card) {
+                        const phaseBody = card.closest('.phase-body');
+                        if (phaseBody) {
+                            const phaseId = phaseBody.id.replace('pb-', '');
+                            if (e.key === 'ArrowRight') {
+                                if (!phaseBody.classList.contains('open')) togglePhase(phaseId);
+                            } else {
+                                if (phaseBody.classList.contains('open')) togglePhase(phaseId);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        document.addEventListener('click', function(e) {
+            const card = e.target.closest('.week-card');
+            if (card && card.dataset.weekNum) {
+                focusedWeekNum = parseInt(card.dataset.weekNum);
+                document.querySelectorAll('.week-card.focused').forEach(el => el.classList.remove(
+                'focused'));
+                card.classList.add('focused');
+            }
+        });
+
+        // ── Export / Import ────────────────
+        function exportData() {
+            const data = {
+                completed: [...completed],
+                notes: notes,
+                startDate: localStorage.getItem('aiml_start_date') || null,
+                theme: localStorage.getItem('aiml_theme') || 'light',
+                exportedAt: new Date().toISOString(),
+            };
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'ai-engineer-roadmap-backup-' + new Date().toISOString().split('T')[0] + '.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('📥 Progress exported!');
+        }
+
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data.completed && Array.isArray(data.completed)) {
+                        completed = new Set(data.completed);
+                        save();
+                    }
+                    if (data.notes && typeof data.notes === 'object') {
+                        notes = data.notes;
+                        saveNotes();
+                    }
+                    if (data.startDate) {
+                        localStorage.setItem('aiml_start_date', data.startDate);
+                    }
+                    if (data.theme) {
+                        localStorage.setItem('aiml_theme', data.theme);
+                        applyTheme();
+                    }
+                    renderAll();
+                    showToast('📤 Progress imported successfully!');
+                } catch (err) {
+                    showToast('⚠️ Invalid file format');
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        // ── Reset ──────────────────────────
+        function resetAll() {
+            if (confirm('⚠️ This will delete ALL progress and notes. Are you sure?')) {
+                if (confirm('🚨 Final warning: This cannot be undone. Continue?')) {
+                    completed.clear();
+                    notes = {};
+                    save();
+                    saveNotes();
+                    localStorage.removeItem('aiml_start_date');
+                    focusedWeekNum = null;
+                    document.getElementById('search-input').value = '';
+                    currentFilter = '';
+                    document.getElementById('search-clear').classList.remove('visible');
+                    renderAll();
+                    showToast('🔄 All progress reset');
+                }
+            }
+        }
+
+        // ── Initialize ─────────────────────
+        renderAll();
+        if (completed.size === 0) {
+            setTimeout(() => {
+                const pb1 = document.getElementById('pb-p1');
+                if (pb1 && !pb1.classList.contains('open')) {
+                    pb1.classList.add('open');
+                    const icon = document.getElementById('pi-p1');
+                    if (icon) icon.classList.add('open');
+                }
+            }, 200);
+        }
+    </script>
+</body>
+</html>
